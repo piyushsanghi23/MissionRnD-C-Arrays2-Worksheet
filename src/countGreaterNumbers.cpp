@@ -14,12 +14,44 @@ ERROR CASES: Return NULL for invalid inputs.
 NOTES:
 */
 
+
+#include<stdio.h>
 struct transaction {
 	int amount;
 	char date[11];
 	char description[20];
 };
+int stringCompare(char str1[], char str2[]){
+	int i = 0, flag = 0;
 
+	while (str1[i] != '\0' && str2[i] != '\0'){
+		if (str1[i] != str2[i]){
+			flag = 1;
+			break;
+		}
+		i++;
+	}
+
+	if (flag == 0 && str1[i] == '\0' && str2[i] == '\0')
+		return 1;
+	else
+		return 0;
+
+}
 int countGreaterNumbers(struct transaction *Arr, int len, char *date) {
-	return -1;
+	int i = 0, c = -1;
+	if (date != NULL && len > 0 && Arr != NULL){
+		for (i = 0; i < len; i++)
+		{
+			if (stringCompare(Arr[i].date, date))
+				c = i;
+		}
+		if (c != -1)
+			return len - c - 1;
+		else
+			return 0;
+
+	}
+	else
+		return -1;
 }

@@ -15,13 +15,53 @@ NOTES:
 */
 
 #include <iostream>
+#include <malloc.h>
 
 struct transaction {
 	int amount;
 	char date[11];
 	char description[20];
 };
+int stringCompare1(char str1[], char str2[]){
+	int i = 0, flag = 0;
 
+	while (str1[i] != '\0' && str2[i] != '\0'){
+		if (str1[i] != str2[i]){
+			flag = 1;
+			break;
+		}
+		i++;
+	}
+
+	if (flag == 0 && str1[i] == '\0' && str2[i] == '\0')
+		return 1;
+	else
+		return 0;
+
+}
 struct transaction * sortedArraysCommonElements(struct transaction *A, int ALen, struct transaction *B, int BLen) {
-	return NULL;
+	int i = 0, j = 0, k = 0, flag = 0;
+	struct transaction *c = NULL;
+	c = (struct transaction*)malloc(sizeof(transaction));
+
+
+
+	if (A != NULL && B != NULL  && ALen > 0 && BLen > 0){
+		for (i = 0; i < ALen; i++)
+		{
+			for (j = 0; j < BLen; j++)
+			{
+				if (stringCompare1(A[i].date, B[j].date))
+				{
+					flag = 1;
+					c[k] = A[i];
+					k++;
+					//printf("comapred both were equal , k is %d , a = %d",k,A[i].amount);
+				}
+			}
+		}
+		return flag ? c : NULL;
+	}
+	else
+		return NULL;
 }
